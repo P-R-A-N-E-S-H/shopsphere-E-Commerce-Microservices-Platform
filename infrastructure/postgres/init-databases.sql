@@ -11,6 +11,7 @@ SELECT 'CREATE DATABASE shop_coupons' WHERE NOT EXISTS (SELECT FROM pg_database 
 SELECT 'CREATE DATABASE shop_shipping' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'shop_shipping')\gexec
 SELECT 'CREATE DATABASE shop_reviews' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'shop_reviews')\gexec
 SELECT 'CREATE DATABASE shop_analytics' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'shop_analytics')\gexec
+SELECT 'CREATE DATABASE shop_ai' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'shop_ai')\gexec
 
 -- Grant all privileges to postgres user
 GRANT ALL PRIVILEGES ON DATABASE shop_auth TO postgres;
@@ -23,3 +24,4 @@ GRANT ALL PRIVILEGES ON DATABASE shop_coupons TO postgres;
 GRANT ALL PRIVILEGES ON DATABASE shop_shipping TO postgres;
 GRANT ALL PRIVILEGES ON DATABASE shop_reviews TO postgres;
 GRANT ALL PRIVILEGES ON DATABASE shop_analytics TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE shop_ai TO postgres;

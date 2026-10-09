@@ -422,6 +422,26 @@ services:
     networks:
       - shopsphere-network
 
+  ai-orchestrator-service:
+    build:
+      context: .
+      dockerfile: services/ai-orchestrator-service/Dockerfile
+    container_name: shopsphere-ai-orchestrator-service
+    restart: unless-stopped
+    ports:
+      - "8095:8095"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/shop_ai
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - shopsphere-network
+
   # ==========================================
   # Frontend Application
   # ==========================================
