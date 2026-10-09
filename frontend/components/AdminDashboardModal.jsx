@@ -42,7 +42,8 @@ const SERVICES = [
   { name: 'Shipping Service', port: 8091, db: 'PostgreSQL', topic: 'shipping-events', latency: '16ms', status: 'HEALTHY' },
   { name: 'Review Service', port: 8092, db: 'PostgreSQL', topic: 'review-events', latency: '13ms', status: 'HEALTHY' },
   { name: 'Notification Service', port: 8093, db: 'PostgreSQL', topic: 'Multi-Topic Listener', latency: '10ms', status: 'HEALTHY' },
-  { name: 'Analytics Service', port: 8094, db: 'PostgreSQL Aggregator', topic: 'Stream Ingestion', latency: '15ms', status: 'HEALTHY' }
+  { name: 'Analytics Service', port: 8094, db: 'PostgreSQL Aggregator', topic: 'Stream Ingestion', latency: '15ms', status: 'HEALTHY' },
+  { name: 'AI Orchestrator Service', port: 8095, db: 'PostgreSQL + Vector Embeddings', topic: 'ai-insights-events', latency: '11ms', status: 'HEALTHY' }
 ];
 
 export default function AdminDashboardModal({ isOpen, onClose }) {
@@ -238,6 +239,15 @@ export default function AdminDashboardModal({ isOpen, onClose }) {
             <span>Architecture Matrix ({SERVICES.length})</span>
           </button>
           <button
+            onClick={() => setActiveTab('ai-ops')}
+            className={`py-3 border-b-2 flex items-center gap-2 transition ${
+              activeTab === 'ai-ops' ? 'border-cyan-400 text-cyan-300' : 'border-transparent text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Cpu className="w-4 h-4 text-cyan-400" />
+            <span>AI Swarm &amp; Fraud Ops</span>
+          </button>
+          <button
             onClick={() => setActiveTab('events')}
             className={`py-3 border-b-2 flex items-center gap-2 transition ${
               activeTab === 'events' ? 'border-indigo-500 text-indigo-400' : 'border-transparent text-slate-400 hover:text-slate-200'
@@ -307,7 +317,79 @@ export default function AdminDashboardModal({ isOpen, onClose }) {
             </div>
           )}
 
-          {/* Tab 2: Live Kafka Events Feed with Interactive Simulator */}
+          {/* Tab 2: Autonomous AI Swarm & Fraud Ops */}
+          {activeTab === 'ai-ops' && (
+            <div className="space-y-5">
+              {/* AI Agent Swarm Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-950/60 to-slate-900 border border-cyan-500/30">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] text-cyan-400 font-bold">FRAUD SENTINEL</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  </div>
+                  <h4 className="font-extrabold text-sm text-white mt-1">Sub-10ms Risk Gate</h4>
+                  <p className="text-[11px] text-slate-400 mt-1">Evaluated 48 checkouts today. 0 false positives.</p>
+                  <div className="mt-3 pt-2 border-t border-slate-800 flex justify-between text-[11px] font-mono">
+                    <span className="text-slate-500">Threat Level:</span>
+                    <span className="text-emerald-400 font-bold">LOW (0.04%)</span>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-950/60 to-slate-900 border border-amber-500/30">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] text-amber-400 font-bold">DYNAMIC BARGAINING</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  </div>
+                  <h4 className="font-extrabold text-sm text-white mt-1">Automated Margin Merchant</h4>
+                  <p className="text-[11px] text-slate-400 mt-1">Generated $24,890 in loyalty checkout deals.</p>
+                  <div className="mt-3 pt-2 border-t border-slate-800 flex justify-between text-[11px] font-mono">
+                    <span className="text-slate-500">Margin Retention:</span>
+                    <span className="text-amber-400 font-bold">88.4%</span>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-950/60 to-slate-900 border border-purple-500/30">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] text-purple-400 font-bold">SUPPLY CHAIN AGENT</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  </div>
+                  <h4 className="font-extrabold text-sm text-white mt-1">Predictive Restock Sentinel</h4>
+                  <p className="text-[11px] text-slate-400 mt-1">100-unit supplier PO dispatched for Sony WH-1000XM5.</p>
+                  <div className="mt-3 pt-2 border-t border-slate-800 flex justify-between text-[11px] font-mono">
+                    <span className="text-slate-500">Stockout Risk:</span>
+                    <span className="text-purple-300 font-bold">RESOLVED</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Live AI Decision Log Stream */}
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="font-bold text-cyan-400 flex items-center gap-1.5">
+                    <Activity className="w-4 h-4" /> Live AI Autonomous Decision Stream
+                  </span>
+                  <span className="text-emerald-400">Kafka [ai-insights-events]</span>
+                </div>
+
+                <div className="space-y-2 text-[11px] font-mono">
+                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                    <span className="text-slate-300">🤖 [OmniCopilot] Executed vector search for audiophile headphones</span>
+                    <span className="text-slate-500">14ms latency</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                    <span className="text-amber-300">🏷️ [DynamicPricing] Authorized 12% margin counter-offer (code: COUNTER-99381)</span>
+                    <span className="text-slate-500">9ms latency</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                    <span className="text-emerald-300">🛡️ [FraudSentinel] Verified biometric &amp; card token fingerprint for ORD-849201</span>
+                    <span className="text-slate-500">6ms latency</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 3: Live Kafka Events Feed with Interactive Simulator */}
           {activeTab === 'events' && (
             <div className="space-y-4">
               {/* Simulator Action Controls */}

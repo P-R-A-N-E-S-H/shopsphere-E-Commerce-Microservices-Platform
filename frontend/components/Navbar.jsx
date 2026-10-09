@@ -18,7 +18,13 @@ import {
   Layers,
   Package,
   MapPin,
-  Award
+  Award,
+  Camera,
+  Mic,
+  Flame,
+  Network,
+  Cpu,
+  Bot
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -33,7 +39,11 @@ export default function Navbar({
   searchQuery,
   setSearchQuery,
   onOpenOrders,
-  onOpenProfile
+  onOpenProfile,
+  onOpenBargain,
+  onOpenVision,
+  onOpenVoice,
+  onOpenNeural
 }) {
   const { user, isAuthenticated, logout, openAuthModal, setIsAdminOpen } = useAuth();
   const { totalItemsCount, subtotal, setIsCartOpen } = useCart();
@@ -71,11 +81,17 @@ export default function Navbar({
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/80 border-b border-slate-800/80 transition-all duration-300">
-      {/* Top micro-announcement banner */}
-      <div className="bg-gradient-to-r from-indigo-900/60 via-purple-900/60 to-pink-900/60 border-b border-indigo-500/20 px-4 py-1.5 text-xs text-center text-indigo-200 flex items-center justify-center gap-2">
-        <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
-        <span>⚡ <strong>Spring Microservices Architecture</strong>: 14 Services Live with Kafka Event Mesh & Redis. Code <span className="font-mono font-bold text-amber-300 bg-amber-500/20 px-1.5 py-0.5 rounded">SAVE20</span> for 20% off!</span>
+    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/85 border-b border-indigo-500/20 transition-all duration-300">
+      {/* Top AI live status banner */}
+      <div className="bg-gradient-to-r from-cyan-950/70 via-indigo-950/80 to-purple-950/70 border-b border-indigo-500/20 px-4 py-1.5 text-xs text-center text-cyan-200 flex items-center justify-center gap-3">
+        <span className="flex items-center gap-1.5 font-bold font-mono text-emerald-400">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          6 AI AGENTS ACTIVE
+        </span>
+        <span className="text-slate-600 hidden sm:inline">•</span>
+        <span className="hidden sm:inline">Dynamic Margin Pricing &amp; Multimodal Neural Search Online</span>
+        <span className="text-slate-600 hidden sm:inline">•</span>
+        <span className="font-mono text-amber-300">Use code <strong className="bg-amber-500/20 px-1.5 py-0.5 rounded border border-amber-500/30">AIEXCLUSIVE15</strong> for 15% OFF</span>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,46 +99,66 @@ export default function Navbar({
           {/* Brand Logo */}
           <div className="flex items-center gap-3">
             <a href="#" className="flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-105 group-hover:shadow-indigo-500/40 transition-all duration-300">
-                <Layers className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/25 group-hover:scale-105 group-hover:shadow-cyan-500/40 transition-all duration-300">
+                <Bot className="w-5 h-5 text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent">
-                  Shop<span className="text-indigo-400">Sphere</span>
+                <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-cyan-100 to-indigo-300 bg-clip-text text-transparent font-outfit">
+                  Shop<span className="text-cyan-400">Sphere</span> <span className="text-xs px-1.5 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-mono">AI</span>
                 </span>
-                <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400">Microservices Hub</span>
+                <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400">Autonomous Commerce</span>
               </div>
             </a>
           </div>
 
-          {/* Search Bar with live Suggestions */}
+          {/* Search Bar with Multimodal Vision & Voice Triggers */}
           <div className="hidden md:flex flex-1 max-w-xl relative" ref={searchRef}>
-            <div className="relative w-full">
+            <div className="relative w-full flex items-center">
               <input
                 type="text"
-                placeholder="Search products, brands, tech, audio..."
+                placeholder="Search products with neural vector matching..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
-                className="w-full bg-slate-900/90 text-slate-100 placeholder-slate-400 text-sm rounded-full pl-11 pr-10 py-2.5 border border-slate-700/80 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-inner"
+                className="w-full bg-slate-900/90 text-slate-100 placeholder-slate-400 text-sm rounded-full pl-11 pr-24 py-2.5 border border-indigo-500/30 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all shadow-inner"
               />
-              <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
-              {searchQuery && (
+              <Search className="w-4 h-4 text-slate-400 absolute left-4 pointer-events-none" />
+
+              {/* Multimodal Quick Triggers */}
+              <div className="absolute right-2.5 flex items-center gap-1">
+                {searchQuery ? (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="p-1 text-slate-400 hover:text-slate-200"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                ) : null}
+
                 <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 p-1"
+                  onClick={onOpenVision}
+                  className="p-1.5 rounded-full hover:bg-cyan-500/20 text-slate-400 hover:text-cyan-300 transition-all"
+                  title="Multimodal Visual Search"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <Camera className="w-4 h-4" />
                 </button>
-              )}
+
+                <button
+                  onClick={onOpenVoice}
+                  className="p-1.5 rounded-full hover:bg-pink-500/20 text-slate-400 hover:text-pink-300 transition-all"
+                  title="Spatial Voice Commerce"
+                >
+                  <Mic className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
             {/* Suggestions Dropdown */}
             {isSearchFocused && suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-2xl border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden z-50 animate-in fade-in-50 slide-in-from-top-2 duration-200">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-2xl border border-indigo-500/30 rounded-2xl shadow-2xl overflow-hidden z-50 animate-slide-up">
                 <div className="px-4 py-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-800 flex justify-between items-center">
-                  <span>Product Suggestions</span>
-                  <span className="text-indigo-400 font-mono">{suggestions.length} matched</span>
+                  <span>Neural Vector Matches</span>
+                  <span className="text-cyan-400 font-mono">{suggestions.length} matched</span>
                 </div>
                 <div className="divide-y divide-slate-800/60 max-h-80 overflow-y-auto">
                   {suggestions.map((product) => (
@@ -137,16 +173,16 @@ export default function Navbar({
                       <img
                         src={product.images[0]}
                         alt={product.name}
-                        className="w-10 h-10 object-cover rounded-lg border border-slate-700 group-hover:border-indigo-500 transition"
+                        className="w-10 h-10 object-cover rounded-lg border border-slate-700 group-hover:border-cyan-400 transition"
                       />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-200 truncate group-hover:text-indigo-400 transition">
+                        <p className="text-sm font-medium text-slate-200 truncate group-hover:text-cyan-300 transition">
                           {product.name}
                         </p>
                         <p className="text-xs text-slate-400">{product.categoryName} • {product.brand}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-bold text-emerald-400">
+                        <p className="text-sm font-bold text-cyan-400">
                           {formatPrice(product.discountPrice || product.price)}
                         </p>
                         {product.discountPrice && (
@@ -155,7 +191,7 @@ export default function Navbar({
                           </p>
                         )}
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-indigo-400 transition" />
+                      <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 transition" />
                     </button>
                   ))}
                 </div>
@@ -164,11 +200,31 @@ export default function Navbar({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* AI Bargaining Quick Trigger */}
+            <button
+              onClick={onOpenBargain}
+              className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-bold text-amber-300 hover:bg-amber-500/20 transition shadow-sm"
+              title="AI Dynamic Bargaining Arena"
+            >
+              <Flame className="w-4 h-4 text-amber-400 animate-pulse" />
+              <span>AI Bargain</span>
+            </button>
+
+            {/* Neural Graph Modal Trigger */}
+            <button
+              onClick={onOpenNeural}
+              className="hidden xl:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs font-bold text-purple-300 hover:bg-purple-500/20 transition shadow-sm"
+              title="View Neural Agent Swarm Mesh"
+            >
+              <Network className="w-4 h-4 text-purple-400" />
+              <span>Agent Swarm</span>
+            </button>
+
             {/* VIP Loyalty Points Trigger */}
             <button
               onClick={() => setIsLoyaltyOpen(true)}
-              className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-bold text-amber-300 hover:bg-amber-500/20 transition shadow-sm"
+              className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-bold text-slate-200 hover:border-amber-500/40 transition shadow-sm"
               title="View VIP Loyalty Rewards & Points"
             >
               <Award className="w-4 h-4 text-amber-400" />
@@ -183,12 +239,12 @@ export default function Navbar({
                 className="flex items-center gap-1.5 px-2.5 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-mono text-slate-300 transition"
                 title="Select Display Currency"
               >
-                <Globe className="w-3.5 h-3.5 text-indigo-400" />
+                <Globe className="w-3.5 h-3.5 text-cyan-400" />
                 <span>{currency}</span>
               </button>
 
               {currencyDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-44 bg-slate-900/95 backdrop-blur-2xl border border-slate-800 rounded-2xl shadow-2xl py-2 z-50 divide-y divide-slate-855">
+                <div className="absolute right-0 mt-2 w-44 bg-slate-900/95 backdrop-blur-2xl border border-slate-800 rounded-2xl shadow-2xl py-2 z-50 divide-y divide-slate-800">
                   <div className="px-3 py-1.5 text-[10px] uppercase font-bold text-slate-500">Currency</div>
                   <div className="py-1">
                     {Object.values(CURRENCIES).map((c) => (
@@ -199,7 +255,7 @@ export default function Navbar({
                           setCurrencyDropdownOpen(false);
                         }}
                         className={`w-full px-3 py-1.5 text-left text-xs flex items-center justify-between hover:bg-slate-800 transition ${
-                          currency === c.code ? 'text-indigo-400 font-bold bg-indigo-500/10' : 'text-slate-300'
+                          currency === c.code ? 'text-cyan-400 font-bold bg-cyan-500/10' : 'text-slate-300'
                         }`}
                       >
                         <span>{c.name}</span>
@@ -214,15 +270,15 @@ export default function Navbar({
             {/* Live System Architecture / Admin Modal trigger */}
             <button
               onClick={() => setIsAdminOpen(true)}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/80 transition-all text-xs font-medium text-slate-200 group shadow-sm"
+              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-800/80 transition-all text-xs font-medium text-slate-200 group shadow-sm"
               title="Open Microservices Mesh & Analytics Dashboard"
             >
               <div className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </div>
-              <Activity className="w-3.5 h-3.5 text-indigo-400 group-hover:scale-110 transition-transform" />
-              <span className="hidden lg:inline">Admin & Mesh</span>
+              <Activity className="w-3.5 h-3.5 text-cyan-400 group-hover:scale-110 transition-transform" />
+              <span className="hidden lg:inline">Admin Ops</span>
             </button>
 
             {/* Wishlist Button */}
@@ -242,7 +298,7 @@ export default function Navbar({
             {/* Cart Drawer Trigger */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium text-sm shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="relative flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:brightness-110 text-white font-medium text-sm shadow-lg shadow-indigo-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               <ShoppingBag className="w-4 h-4" />
               <span className="hidden sm:inline font-bold">{formatPrice(subtotal)}</span>
@@ -254,119 +310,69 @@ export default function Navbar({
             </button>
 
             {/* User Profile / Auth Button */}
-            <div className="relative">
-              {isAuthenticated ? (
+            {isAuthenticated ? (
+              <div className="relative">
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-200 transition"
+                  className="flex items-center gap-2 p-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition text-xs text-slate-200"
                 >
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white shadow">
-                    {user.firstName ? user.firstName.charAt(0) : 'U'}
+                  <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs">
+                    {user?.fullName?.charAt(0) || 'U'}
                   </div>
-                  <span className="text-xs font-medium hidden sm:inline">{user.firstName}</span>
+                  <span className="hidden md:inline font-medium truncate max-w-[90px]">{user?.fullName?.split(' ')[0]}</span>
                 </button>
-              ) : (
-                <button
-                  onClick={() => openAuthModal('login')}
-                  className="p-2 sm:px-3.5 sm:py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-2 transition hover:bg-slate-800"
-                >
-                  <User className="w-4 h-4 text-indigo-400" />
-                  <span className="hidden sm:inline">Sign In</span>
-                </button>
-              )}
 
-              {/* User Dropdown Menu */}
-              {userDropdownOpen && isAuthenticated && (
-                <div className="absolute right-0 mt-2 w-56 bg-slate-900/95 backdrop-blur-2xl border border-slate-800 rounded-2xl shadow-2xl py-2 z-50">
-                  <div className="px-4 py-2.5 border-b border-slate-800">
-                    <p className="text-xs text-slate-400">Signed in as</p>
-                    <p className="text-sm font-semibold text-slate-200 truncate">{user.email}</p>
-                    <span className="inline-block mt-1 text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">
-                      {user.role}
-                    </span>
+                {userDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-52 bg-slate-900/95 backdrop-blur-2xl border border-slate-800 rounded-2xl shadow-2xl py-2 z-50 divide-y divide-slate-800 animate-slide-up">
+                    <div className="px-4 py-2">
+                      <p className="text-xs font-bold text-white truncate">{user?.fullName}</p>
+                      <p className="text-[10px] text-slate-400 truncate">{user?.email}</p>
+                    </div>
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          onOpenProfile();
+                          setUserDropdownOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left text-xs text-slate-300 hover:bg-slate-800 flex items-center gap-2"
+                      >
+                        <User className="w-4 h-4 text-slate-400" />
+                        <span>Profile &amp; Addresses</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          onOpenOrders();
+                          setUserDropdownOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left text-xs text-slate-300 hover:bg-slate-800 flex items-center gap-2"
+                      >
+                        <Package className="w-4 h-4 text-slate-400" />
+                        <span>Order History &amp; Tracking</span>
+                      </button>
+                    </div>
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          logout();
+                          setUserDropdownOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left text-xs text-rose-400 hover:bg-rose-500/10 flex items-center gap-2"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
                   </div>
-
-                  <button
-                    onClick={() => {
-                      setUserDropdownOpen(false);
-                      if (onOpenOrders) onOpenOrders();
-                    }}
-                    className="w-full px-4 py-2 text-left text-xs text-slate-300 hover:bg-slate-800 flex items-center gap-2.5 transition"
-                  >
-                    <Package className="w-4 h-4 text-indigo-400" />
-                    My Orders & Tracking
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setUserDropdownOpen(false);
-                      if (onOpenProfile) onOpenProfile();
-                    }}
-                    className="w-full px-4 py-2 text-left text-xs text-slate-300 hover:bg-slate-800 flex items-center gap-2.5 transition"
-                  >
-                    <MapPin className="w-4 h-4 text-indigo-400" />
-                    Saved Addresses & Profile
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setUserDropdownOpen(false);
-                      setIsLoyaltyOpen(true);
-                    }}
-                    className="w-full px-4 py-2 text-left text-xs text-amber-300 hover:bg-slate-800 flex items-center gap-2.5 transition"
-                  >
-                    <Award className="w-4 h-4 text-amber-400" />
-                    VIP Rewards ({points} Pts)
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setUserDropdownOpen(false);
-                      setIsAdminOpen(true);
-                    }}
-                    className="w-full px-4 py-2 text-left text-xs text-slate-300 hover:bg-slate-800 flex items-center gap-2.5 transition"
-                  >
-                    <Activity className="w-4 h-4 text-indigo-400" />
-                    Microservices Architecture
-                  </button>
-
-                  <div className="border-t border-slate-800 my-1" />
-
-                  <button
-                    onClick={() => {
-                      setUserDropdownOpen(false);
-                      logout();
-                    }}
-                    className="w-full px-4 py-2 text-left text-xs text-rose-400 hover:bg-slate-800/80 flex items-center gap-2.5 transition"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Mobile menu toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-slate-200"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Search input */}
-        <div className="md:hidden pb-3">
-          <div className="relative w-full">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900 text-slate-100 placeholder-slate-400 text-sm rounded-xl pl-10 pr-4 py-2 border border-slate-800 focus:outline-none focus:border-indigo-500"
-            />
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={openAuthModal}
+                className="px-3 py-2 rounded-xl bg-slate-900 border border-indigo-500/30 hover:border-cyan-400/60 text-xs font-bold text-white shadow-sm transition-all"
+              >
+                Sign In
+              </button>
+            )}
           </div>
         </div>
       </div>
