@@ -12,4 +12,8 @@ public final class KafkaTopics {
     public static final String SHIPPING_EVENTS = "shipping-events";
     public static final String NOTIFICATION_EVENTS = "notification-events";
     public static final String ANALYTICS_EVENTS = "analytics-events";
+    public static final String AI_INSIGHTS_EVENTS = "ai-insights-events";
+    public static final String DYNAMIC_PRICING_EVENTS = "dynamic-pricing-events";
+    public static final String FRAUD_ALERT_EVENTS = "fraud-alert-events";
+    public static final String AUTONOMOUS_RESTOCK_EVENTS = "autonomous-restock-events";
 }
