@@ -94,6 +94,12 @@ spring:
           predicates:
             - Path=/api/v1/analytics/**
 
+        # AI Orchestrator & Autonomous Swarm Service
+        - id: ai-orchestrator-service
+          uri: http://localhost:8095
+          predicates:
+            - Path=/api/v1/ai/**
+
   data:
     redis:
       host: localhost
