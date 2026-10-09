@@ -54,4 +54,22 @@ public class AnalyticsEventConsumer {
             log.error("Failed to process payment event in analytics-service: {}", e.getMessage());
         }
     }
+
+    @KafkaListener(topics = KafkaTopics.AI_INSIGHTS_EVENTS, groupId = "analytics-ai-group")
+    public void consumeAiEvents(String message) {
+        try {
+            log.info("[ANALYTICS-AI] Ingested AI Agent decision metric: {}", message);
+        } catch (Exception e) {
+            log.warn("Failed to process AI event: {}", e.getMessage());
+        }
+    }
+
+    @KafkaListener(topics = KafkaTopics.DYNAMIC_PRICING_EVENTS, groupId = "analytics-pricing-group")
+    public void consumePricingEvents(String message) {
+        try {
+            log.info("[ANALYTICS-PRICING] Ingested Dynamic Bargaining price optimization: {}", message);
+        } catch (Exception e) {
+            log.warn("Failed to process pricing event: {}", e.getMessage());
+        }
+    }
 }
