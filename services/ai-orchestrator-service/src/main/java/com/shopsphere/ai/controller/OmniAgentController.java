@@ -21,6 +21,7 @@ public class OmniAgentController {
 
     private final OmniConciergeAgentService conciergeAgentService;
     private final AiAgentLogRepository agentLogRepository;
+    private final com.shopsphere.ai.service.AiStreamPublisherService streamPublisherService;
 
     @PostMapping("/chat")
     @Operation(summary = "Interact with Autonomous AI Concierge with Tool-Execution")
@@ -34,5 +35,12 @@ public class OmniAgentController {
     public ResponseEntity<ApiResponse<List<AiAgentLog>>> getRecentAgentLogs() {
         List<AiAgentLog> logs = agentLogRepository.findTop20ByOrderByCreatedAtDesc();
         return ResponseEntity.ok(ApiResponse.success(logs, "Recent AI agent logs retrieved"));
+    }
+
+    @GetMapping("/telemetry/swarm")
+    @Operation(summary = "Get live multi-agent swarm status and performance KPIs")
+    public ResponseEntity<ApiResponse<AIDTOs.AgentSwarmTelemetryDTO>> getSwarmTelemetry() {
+        AIDTOs.AgentSwarmTelemetryDTO telemetry = streamPublisherService.getSwarmTelemetry();
+        return ResponseEntity.ok(ApiResponse.success(telemetry, "Swarm telemetry retrieved successfully"));
     }
 }
