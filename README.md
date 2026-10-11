@@ -13,7 +13,7 @@
 
 ## 🌟 Overview
 
-**ShopSphere AI** is a cutting-edge, production-grade **Autonomous Multi-Agent E-Commerce & Intelligence Ecosystem** engineered with **Java 21**, **Spring Boot 3.3.4**, **Apache Kafka**, **Redis**, **PostgreSQL**, and **Next.js 14**. 
+**ShopSphere AI** is a cutting-edge, production-grade **Autonomous Multi-Agent E-Commerce & Intelligence Ecosystem** engineered with **Java 21**, **Spring Boot 3.3.4**, **Apache Kafka**, **Redis**, **PostgreSQL**, and **Next.js 14**.
 
 Beyond standard storefronts, ShopSphere AI integrates an autonomous multi-agent swarm capable of **real-time dynamic price bargaining**, **multimodal visual search & color palette vectorization**, **sub-10ms neural fraud risk scoring**, **predictive supply chain restock forecasting**, **aspect-based sentiment radar**, and **spatial voice commerce**.
 
